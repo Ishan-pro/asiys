@@ -1,0 +1,88 @@
+{% extends 'base.html' %} 
+{% block 'title' %} Home {% endblock %}
+{% block 'content' %} 
+    <div class="row justify-content-center align-items-center" style="background-color: lightskyblue; height: 90vh;">
+        <h1 class="col-lg-6 col-sm-12 col-xs-12 text-center">Welcome</h1>
+        <p class="col-lg-6 col-sm-12 col-xs-12 p-1 text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique reprehenderit maxime magnam hic eius dolorem quidem! At doloribus voluptate perferendis possimus quas eum mollitia ipsa, quasi nihil, eveniet velit aperiam animi iusto corporis. Laborum deleniti eligendi voluptate eaque, quaerat autem?</p>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12 text-center"><h1>Why learn yoga?</h1></div>
+        <p class="col-12 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, debitis?</p>
+        <div class="col-12 justify-self-center align-content-center text-center">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registermodel">
+            Join us
+          </button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginmodel">Login</button>
+           
+          
+          <!-- Modal -->
+          <div class="modal fade" id="registermodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Create an account</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="/users/register/" method="POST" class="needs-validation">
+                    {% csrf_token %}
+                      <label for="name" class="form-label">Your name</label>
+                      <div class="invalid-feedback">Please tell us your name</div>
+                      <input type="text" id="name" class="form-control" name="username" required>
+                      <label for="phonenumber" class="form-label">Your phone number</label>
+                      <input type="tel" id="phonenumber" class="form-control" name="number" aria-describedby="phonehelp">
+                      <div id="phonehelp" class="form-text">so that we can contact you in need</div>
+                      <label for="email" class="form-label"> Your email</label>
+
+                      <input type="email" id="email" class="form-control" name="email" aria-describedby="emailhelp">
+                      <div id="emailhelp" class="form-text">We hate spams</div>
+                      <label for="password1" class="form-label">Your password</label>
+                      <input type="password" class="form-control" id="password1" name="password1" required>
+
+                      <div class="invalid-feedback">Please choose a password</div>
+                      <label for="password2" class="form-label">Your password once more</label>
+
+                      <input type="password" class="form-control" id="password2" name="password2" required>
+
+                      <div class="invalid-feedback">Your password once more</div>
+                     
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-secondary">Submit</button>
+                </form>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginmodel">Login</button>
+                
+            </div>
+            </div></div></div></div>
+             <div class="modal fade" id="loginmodel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="/users/login/" method="POST" class="needs-validation">
+                      {% csrf_token %}
+                        <label for="name" class="form-label">Username</label>
+                        <div class="invalid-feedback">Tell us your username</div>
+                        <input type="text" id="name" class="form-control" name="username" required>
+                        <label for="password1" class="form-label">Your password</label>
+                        <input type="password" class="form-control" id="password1" name="password1" required>
+  
+                        <div class="invalid-feedback">Tell your password</div>
+                        
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                     
+                  </form>
+                  </div>
+                </div>
+          </div></div>
+    </div>
+    
+    <!-- Button trigger modal -->
+
+  
+{% endblock %}

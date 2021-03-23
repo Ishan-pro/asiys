@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block 'content' %} 
+<div class="text-center row">
+
+<h1>Hello {{request.user.first_name}} {{request.user.last_name}}</h1>
+{% if profile.classbooked == False %}
+<form action="/bookclass/" method="POST">
+    {% csrf_token %}
+<div class="col-lg-6 col-sm-12 col-md-10 col-xs-12 mx-auto  border border-rounded">
+
+<div class="mb-3 p-3">
+    <label for="formGroupExampleInput" class="form-label" name='time'>Choose the date for your trial class</label>
+    <input type="date" class="form-control" id="formGroupExampleInput" name="date" placeholder="Example input placeholder">
+</div>
+<input type="submit" class="btn btn-success form-control" value="Submit">
+</div>
+</form>
+</div>
+{% elif profile.classbooked == True and profile.class_conducted == False %}
+    <h5>Your free class is booked on {{profile.trail_class_timing}}</h5>
+    {% elif profile.class_conducted %}
+    <h5>Write your opinion about the class</h5>
+    <form action="/comment/" method="POST">
+        {% csrf_token %}
+        <input name="comment" id="" cols="30" rows="10" class="form-control" value='{{profile.opinion}}'></textarea>
+        <input type="submit" class="btn btn-success" value="Share it">
+    </form>
+{% endif %}
+<!-- Button trigger modal -->
+<div class="row justify-content-center align-items-center mt-2" style="margin-bottom: 40vh;">
+
+<button type="button" class="btn btn-primary col-lg-4 col-sm-12 col-md-10 col-xs-12" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    See your profile
+  </button>
+  
+
+
+<a href="/users/logout" class="btn btn-danger col-lg-4 col-sm-12 col-md-10 col-xs-12">Logout</a> 
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <form action="/users/update/" method="POST" class="needs-validation">
+                {% csrf_token %}
+                  <label for="name" class="form-label">First name</label>
+                  <div class="invalid-feedback">Please tell us your name</div>
+                  <input type="text" id="name" class="form-control" name="firstname" value='{{user.first_name}}' required>
+                  <label for="lastname" class="form-label">Last name</label>
+                  <div class="invalid-feedback">Please tell us your name</div>
+                  <input type="text" id="lastname" class="form-control" name="lastname" value='{{user.last_name}}' required>
+                 <label for="phonenumber" class="form-label">Your phone number</label>
+                  <input type="tel" id="phonenumber" class="form-control" value='{{profile.phonenumber}}' name="number" aria-describedby="phonehelp">
+                  <div id="phonehelp" class="form-text">so that we can contact you in need</div>
+                  <label for="email" class="form-label"> Your email</label>
+
+                  <input type="email" id="email" class="form-control" name="email" aria-describedby="emailhelp" value="{{user.email}}">
+                  <div id="emailhelp" class="form-text">We hate spams</div>
+                 
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-secondary">Save Changes</button>
+               
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+{% endblock %}
