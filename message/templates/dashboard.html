@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% block 'title' %} Dashboard {% endblock %}
 {% block 'content' %} 
 <div class="text-center row">
 
@@ -18,13 +19,15 @@
 </div>
 {% elif profile.classbooked == True and profile.class_conducted == False %}
     <h5>Your free class is booked on {{profile.trail_class_timing}}</h5>
-    {% elif profile.class_conducted %}
+    {% elif profile.class_conducted and profile.opinion == None %}
     <h5>Write your opinion about the class</h5>
     <form action="/comment/" method="POST">
         {% csrf_token %}
         <input name="comment" id="" cols="30" rows="10" class="form-control" value='{{profile.opinion}}'></textarea>
         <input type="submit" class="btn btn-success" value="Share it">
     </form>
+    {% else %}
+    <div class="border border-rounded"><h1>Tutorials</h1></div>
 {% endif %}
 <!-- Button trigger modal -->
 <div class="row justify-content-center align-items-center mt-2" style="margin-bottom: 40vh;">
